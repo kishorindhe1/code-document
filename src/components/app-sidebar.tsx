@@ -1,17 +1,16 @@
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import {
     Sidebar,
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
-    SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuItem,
+    SidebarMenuItem
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 // Menu items.
@@ -46,9 +45,11 @@ const items = [
 export function AppSidebar() {
     return (
         <Sidebar className="z-50">
-            <SidebarHeader className="text-center text-2xl font-bold py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-transparent bg-clip-text">
+
+            <div className="text-center text-2xl font-bold py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-transparent bg-clip-text">
+
                 PinkBlue
-            </SidebarHeader>
+            </div>
 
 
             <SidebarContent>
@@ -56,7 +57,7 @@ export function AppSidebar() {
                     <SidebarGroupLabel>Application</SidebarGroupLabel>
 
                     <div className="px-4 py-2">
-                        <Button asChild className="w-full">
+                        <Button asChild className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white hover:opacity-90 cursor-pointer w-full" >
                             <Link href="/doc/new">New Doc</Link>
                         </Button>
                     </div>
@@ -77,6 +78,6 @@ export function AppSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
-        </Sidebar>
+        </Sidebar >
     );
 }

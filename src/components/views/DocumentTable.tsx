@@ -88,7 +88,7 @@ export default function DocumentsTable() {
 
     return (
         <div className="space-y-4">
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-3">
                 <Input
                     placeholder="Filter by title..."
                     value={filter}
