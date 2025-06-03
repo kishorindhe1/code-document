@@ -9,9 +9,7 @@ interface PageProps {
 }
 
 export default function Page({ params }: PageProps) {
-    const documentId = params.id
-    console.log("Document ID from params:", documentId);
-
+    const documentId = params.id;
 
     return (
         <>
@@ -35,5 +33,6 @@ export default function Page({ params }: PageProps) {
                 </BreadcrumbList>
             </Breadcrumb>
             <EditDocument documentId={documentId} />
-        </>);
+        </>
+    );
 }
