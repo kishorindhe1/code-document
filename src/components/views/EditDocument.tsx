@@ -24,17 +24,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useParams } from "next/navigation";
 
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
     summary: z.string().optional(),
 });
 
-interface EditorProps {
-    documentId?: string;
-}
-
-export default function EditDocument({ documentId }: EditorProps) {
+export default function EditDocument() {
+    const documentId = useParams().id as string | undefined;
     const editor = useCreateBlockNote();
     const [isSaving, setIsSaving] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
