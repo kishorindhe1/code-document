@@ -1,10 +1,7 @@
+'use client';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const EditDocument = dynamic(() => import('@/components/views/EditDocument'), {
-    ssr: false, // Disables server-side rendering
-});
+import EditDocument from '@/components/views/EditDocument';
 
 const page = () => {
     return (
