@@ -1,9 +1,12 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import Link from 'next/link';
-import EditDocument from '@/components/views/EditDocument';
 
-const page = () => {
+// Disable SSR for EditDocument
+const EditDocument = dynamic(() => import('@/components/views/EditDocument'), { ssr: false });
+
+const Page = () => {
     return (
         <>
             <Breadcrumb>
@@ -30,4 +33,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
