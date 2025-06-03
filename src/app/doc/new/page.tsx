@@ -1,9 +1,10 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import Link from 'next/link';
-// app/docs/metadata.ts
-import EditDocument from '@/components/views/EditDocument';
+import dynamic from 'next/dynamic';
 
-
+const EditDocument = dynamic(() => import('@/components/views/EditDocument'), {
+    ssr: false, // Disables server-side rendering
+});
 
 const page = () => {
     return (
@@ -29,8 +30,7 @@ const page = () => {
             </Breadcrumb>
             <EditDocument />
         </>
+    );
+};
 
-    )
-}
-
-export default page
+export default page;
