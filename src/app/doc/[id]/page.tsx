@@ -3,13 +3,8 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import EditDocument from '@/components/views/EditDocument';
 import Link from 'next/link';
 
-interface PageProps {
-    params: {
-        id: string;
-    };
-}
-
-export default function Page({ params }: PageProps) {
+// Use an inline type to avoid conflicts
+export default function Page({ params }: { params: { id: string }; searchParams?: { [key: string]: string | string[] | undefined } }) {
     const documentId = params?.id;
 
     // Fallback if documentId is missing or invalid
