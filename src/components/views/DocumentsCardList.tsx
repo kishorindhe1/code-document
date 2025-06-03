@@ -12,6 +12,8 @@ interface Document {
     id: number;
     title: string;
     content: string;
+    summary?: string;
+    tags?: { id: string; tag_name: string }[];
     created_at: string;
 }
 
@@ -31,7 +33,7 @@ export default function DocumentsCardList() {
 
         const { data, error, count } = await supabase
             .from('documents')
-            .select('*', { count: 'exact' })
+            .select('id, title, content, summary, tags, created_at', { count: 'exact' })
             .ilike('title', `%${filter}%`)
             .order('created_at', { ascending: false })
             .range(from, to);
@@ -75,14 +77,32 @@ export default function DocumentsCardList() {
                     ))
                     : documents.map((doc) => (
                         <Link key={doc.id} href={`/doc/${doc.id}`} style={{ textDecoration: 'none' }}>
-                            <Card>
+                            <Card className="hover:shadow-md transition-shadow">
                                 <CardHeader>
                                     <CardTitle>{doc.title}</CardTitle>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className="space-y-2">
                                     <p className="text-sm text-muted-foreground">
                                         Created: {new Date(doc.created_at).toLocaleString()}
                                     </p>
+                                    <p className="text-sm">
+                                        <strong>Summary:</strong>{' '}
+                                        {doc.summary ? doc.summary : <span className="text-muted-foreground">No summary</span>}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {doc.tags && doc.tags.length > 0 ? (
+                                            doc.tags.map((tag) => (
+                                                <span
+                                                    key={tag.id}
+                                                    className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"
+                                                >
+                                                    {tag.tag_name}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <span className="text-sm text-muted-foreground">No tags</span>
+                                        )}
+                                    </div>
                                 </CardContent>
                             </Card>
                         </Link>
