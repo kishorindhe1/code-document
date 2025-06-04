@@ -8,7 +8,7 @@ export default function Page() {
 
 
     return (
-        <div className="p-4" role="main">
+        <div className="sm:p-4" role="main">
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>

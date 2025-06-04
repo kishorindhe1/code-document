@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blocknote/code-block": "^0.32.0-hackdays.0",
     "@blocknote/core": "^0.31.1",
     "@blocknote/mantine": "^0.31.1",
     "@blocknote/react": "^0.31.1",

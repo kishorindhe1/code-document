@@ -25,15 +25,61 @@ import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
-
+import { codeBlock } from "@blocknote/code-block";
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
     summary: z.string().optional(),
 });
 
+
+const MAX_CHARS_PER_NODE = 1000;
+
 export default function EditDocument() {
     const documentId = useParams().id as string | undefined;
-    const editor = useCreateBlockNote();
+
+
+    const editor = useCreateBlockNote({
+        codeBlock,
+        pasteHandler: ({ event, editor, defaultPasteHandler }) => {
+            // Run the default handler synchronously
+            const handled = defaultPasteHandler({
+                prioritizeMarkdownOverHTML: true,
+                plainTextAsMarkdown: true,
+            });
+
+            if (handled) return true;
+
+            // Fallback: handle large plain text
+            const plainText = event.clipboardData?.getData("text/plain");
+            if (!plainText) return false;
+
+            const chunks = [];
+            for (let i = 0; i < plainText.length; i += MAX_CHARS_PER_NODE) {
+                chunks.push(plainText.slice(i, i + MAX_CHARS_PER_NODE));
+            }
+
+            let referenceBlock = editor.getTextCursorPosition()?.block.id;
+
+            chunks.forEach((chunk) => {
+                editor.insertBlocks(
+                    [
+                        {
+                            type: "paragraph",
+                            content: chunk,
+                        },
+                    ],
+                    referenceBlock
+                );
+
+                referenceBlock = editor.getTextCursorPosition()?.block.id;
+            });
+
+            return true;
+        }
+
+    });
+
+
     const [isSaving, setIsSaving] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isEditable, setIsEditable] = useState(false);
@@ -185,13 +231,15 @@ export default function EditDocument() {
                 </div>
             )}
 
+
+
+
             <BlockNoteView
                 editor={editor}
-                className="w-full border min-h-[300px] rounded-2xl p-1"
+                className="w-full border min-h-[300px]  rounded-2xl p-1"
                 editable={isEditable}
                 theme={theme === "dark" ? "dark" : "light"} // Use theme from next-themes
             />
-
             {/* Drawer for Title, Summary, and Tags */}
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen} direction="right">
                 <DrawerContent className="p-4 space-y-4">

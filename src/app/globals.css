@@ -120,3 +120,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media (max-width: 480px) {
+  .bn-block-group h1 {
+    font-size: 1.5rem !important;
+  }
+  .bn-block-group h2 {
+    font-size: 1.25rem !important;
+  }
+  .bn-block-group h3 {
+    font-size: 1.1rem !important;
+  }
+  .bn-block-group p {
+    font-size: 0.95rem !important;
+  }
+}

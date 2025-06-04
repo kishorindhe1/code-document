@@ -22,7 +22,8 @@ import {
     DialogTitle,
     DialogFooter,
 } from '@/components/ui/dialog';
-import { Trash2 } from 'lucide-react';
+import { Eye, Trash2 } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface Document {
     id: number;
@@ -149,13 +150,31 @@ export default function DocumentsTable() {
                                     </TableCell>
                                     <TableCell>{new Date(doc.created_at).toLocaleString()}</TableCell>
                                     <TableCell className="text-right">
-                                        <Button
-                                            className="cursor-pointer"
-                                            variant="ghost"
-                                            onClick={() => setDocToDelete(doc)}
-                                        >
-                                            <Trash2 className="w-4 h-4 text-red-500" />
+                                        <Button className="cursor-pointer" variant="ghost">
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Link key={doc.id} href={`/doc/${doc.id}`} style={{ textDecoration: 'none' }}>
+                                                        <Eye className="w-4 h-4 " />
+                                                    </Link>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    View Document
+                                                </TooltipContent>
+                                            </Tooltip>
                                         </Button>
+
+                                        <Button className="cursor-pointer" variant="ghost" onClick={() => setDocToDelete(doc)}>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Trash2 className="w-4 h-4 text-red-500" />
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    Delete Document
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </Button>
+
+
                                     </TableCell>
                                 </TableRow>
                             ))}
