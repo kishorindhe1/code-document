@@ -20,6 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="android-chrome-192x192.png" />
+        <meta name="theme-color" content="#5E48F0" />
+      </head>
       <body
         className=
         "min-h-screen bg-background font-sans antialiased bg-[url('https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/images/docs-right.png')] bg-no-repeat bg-left bg-center bg-contain "     >
